@@ -24,6 +24,16 @@ scripts:
 - \c postgres(to connect to it) and \q (to deconnect)
 - npm run test (to run migrations for test database)
 - npm run dev (to run migrations for developing database)
+## Environment variables:
+ENV=dev
+POSTGRES_HOST=localhost
+POSTGRES_DB=postgres
+POSTGRES_USER=postgres
+POSTGRES_PASSWORD=password123
+POSTGRES_TEST_DB=posygres_test
+BCRYPT_SALT_ROUNDS=10
+BCRYPT_PEPPER=5Ffja@9spfaA#
+JWT_TOKEN_SECRET=Sog@*Fos2*7
 ## Contributer:
 Amine zekri 
 ## Licence:
