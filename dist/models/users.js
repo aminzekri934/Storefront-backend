@@ -38,7 +38,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserStore = void 0;
 var database_1 = __importDefault(require("../database"));
 var UserStore = /** @class */ (function () {
@@ -52,7 +52,7 @@ var UserStore = /** @class */ (function () {
                     case 0:
                         _a.trys.push([0, 3, , 4]);
                         sql = "SELECT * from users";
-                        return [4 /*yield*/, database_1["default"].connect()];
+                        return [4 /*yield*/, database_1.default.connect()];
                     case 1:
                         conn = _a.sent();
                         return [4 /*yield*/, conn.query(sql)];
@@ -77,7 +77,7 @@ var UserStore = /** @class */ (function () {
                     case 0:
                         _a.trys.push([0, 3, , 4]);
                         sql = "SELECT * FROM users WHERE firstname=($1)";
-                        return [4 /*yield*/, database_1["default"].connect()];
+                        return [4 /*yield*/, database_1.default.connect()];
                     case 1:
                         conn = _a.sent();
                         return [4 /*yield*/, conn.query(sql, [firstname])];
@@ -102,7 +102,7 @@ var UserStore = /** @class */ (function () {
                     case 0:
                         _a.trys.push([0, 3, , 4]);
                         sql = "INSERT INTO users (firstname, lastname, password) VALUES($1, $2, $3) RETURNING *";
-                        return [4 /*yield*/, database_1["default"].connect()];
+                        return [4 /*yield*/, database_1.default.connect()];
                     case 1:
                         conn = _a.sent();
                         return [4 /*yield*/, conn.query(sql, [
@@ -131,7 +131,7 @@ var UserStore = /** @class */ (function () {
                     case 0:
                         _a.trys.push([0, 3, , 4]);
                         sql = "SELECT * FROM users WHERE firstname=($1)";
-                        return [4 /*yield*/, database_1["default"].connect()];
+                        return [4 /*yield*/, database_1.default.connect()];
                     case 1:
                         conn = _a.sent();
                         return [4 /*yield*/, conn.query(sql, [firstname])];
@@ -148,7 +148,7 @@ var UserStore = /** @class */ (function () {
             });
         });
     };
-    UserStore.prototype["delete"] = function (firstname) {
+    UserStore.prototype.delete = function (firstname) {
         return __awaiter(this, void 0, void 0, function () {
             var sql, conn, result, user, err_5;
             return __generator(this, function (_a) {
@@ -156,7 +156,7 @@ var UserStore = /** @class */ (function () {
                     case 0:
                         _a.trys.push([0, 3, , 4]);
                         sql = "DELETE FROM users WHERE firstname=($1)";
-                        return [4 /*yield*/, database_1["default"].connect()];
+                        return [4 /*yield*/, database_1.default.connect()];
                     case 1:
                         conn = _a.sent();
                         return [4 /*yield*/, conn.query(sql, [firstname])];

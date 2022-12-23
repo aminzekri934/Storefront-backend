@@ -38,7 +38,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
 var orders_1 = require("../models/orders");
 var verifyAuthToken_1 = __importDefault(require("./middleware/verifyAuthToken"));
 var store = new orders_1.OrderStore();
@@ -68,7 +68,7 @@ var show = function (req, res) { return __awaiter(void 0, void 0, void 0, functi
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 2, , 3]);
-                return [4 /*yield*/, store.show(req.body.userId)];
+                return [4 /*yield*/, store.show(req.params.userId)];
             case 1:
                 order = _a.sent();
                 res.json(order);
@@ -92,7 +92,7 @@ var createOrder = function (req, res) { return __awaiter(void 0, void 0, void 0,
                     productId: req.body.productId,
                     status: req.body.status,
                     quantity: req.body.quantity,
-                    userId: req.body.userId
+                    userId: req.body.userId,
                 };
                 return [4 /*yield*/, store.createOrder(order)];
             case 1:
@@ -129,9 +129,9 @@ var deleteOrder = function (req, res) { return __awaiter(void 0, void 0, void 0,
     });
 }); };
 var orderRoutes = function (app) {
-    app.get("/orders", verifyAuthToken_1["default"], index);
-    app.get("/orders/:userId", verifyAuthToken_1["default"], show);
-    app.post("/orders", verifyAuthToken_1["default"], createOrder);
-    app["delete"]("/orders", verifyAuthToken_1["default"], deleteOrder);
+    app.get("/orders", verifyAuthToken_1.default, index);
+    app.get("/orders/:userId", verifyAuthToken_1.default, show);
+    app.post("/orders/products", verifyAuthToken_1.default, createOrder);
+    app.delete("/orders/products", verifyAuthToken_1.default, deleteOrder);
 };
-exports["default"] = orderRoutes;
+exports.default = orderRoutes;

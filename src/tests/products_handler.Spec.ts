@@ -33,7 +33,7 @@ describe("Product Handler", () => {
 
   it("should return success for READ product by product name", async () => {
     const response = await request
-      .get("/products")
+      .get("/products/:productName")
       .send(`productName=${productInstance.name}`);
 
     expect(response.status).toBe(200);

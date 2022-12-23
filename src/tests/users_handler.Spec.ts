@@ -33,9 +33,9 @@ describe("User Handler", () => {
 
   it("should return success for READ user by firstname", async () => {
     const response = await request
-      .get("/users")
+      .get("/users/:firstname")
       .auth(token, { type: "bearer" })
-      .send(`username=${userInstance.firstname}`);
+      .send(`firstname=${userInstance.firstname}`);
 
     expect(response.status).toBe(200);
     expect(response.body).toBeTruthy();

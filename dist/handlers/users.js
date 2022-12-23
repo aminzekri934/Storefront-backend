@@ -38,13 +38,13 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
 var dotenv_1 = __importDefault(require("dotenv"));
 var jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 var bcrypt_1 = __importDefault(require("bcrypt"));
 var users_1 = require("../models/users");
 var verifyAuthToken_1 = __importDefault(require("./middleware/verifyAuthToken"));
-dotenv_1["default"].config();
+dotenv_1.default.config();
 var _a = process.env, BCRYPT_SALT_ROUNDS = _a.BCRYPT_SALT_ROUNDS, BCRYPT_PEPPER = _a.BCRYPT_PEPPER, JWT_TOKEN_SECRET = _a.JWT_TOKEN_SECRET;
 var store = new users_1.UserStore();
 var index = function (_req, res) { return __awaiter(void 0, void 0, void 0, function () {
@@ -93,17 +93,17 @@ var register = function (req, res) { return __awaiter(void 0, void 0, void 0, fu
         switch (_b.label) {
             case 0:
                 pepperedPassword = "".concat(req.body.password).concat(BCRYPT_PEPPER);
-                return [4 /*yield*/, bcrypt_1["default"].genSalt(parseInt(BCRYPT_SALT_ROUNDS))];
+                return [4 /*yield*/, bcrypt_1.default.genSalt(parseInt(BCRYPT_SALT_ROUNDS))];
             case 1:
                 salt = _b.sent();
-                hashPassword = bcrypt_1["default"].hashSync(pepperedPassword, salt);
+                hashPassword = bcrypt_1.default.hashSync(pepperedPassword, salt);
                 _b.label = 2;
             case 2:
                 _b.trys.push([2, 4, , 5]);
                 user = {
                     firstname: req.body.firstname,
                     lastname: req.body.lastname,
-                    password: hashPassword
+                    password: hashPassword,
                 };
                 return [4 /*yield*/, store.create(user)];
             case 3:
@@ -132,11 +132,11 @@ var login = function (req, res) { return __awaiter(void 0, void 0, void 0, funct
                     return [2 /*return*/, res.status(400).send("Username is wrong")];
                 }
                 pepperedPassword = "".concat(req.body.password).concat(BCRYPT_PEPPER);
-                validPassword = bcrypt_1["default"].compareSync(pepperedPassword, foundUser.password);
+                validPassword = bcrypt_1.default.compareSync(pepperedPassword, foundUser.password);
                 if (!validPassword) {
                     return [2 /*return*/, res.status(400).send("Password is wrong")];
                 }
-                token = jsonwebtoken_1["default"].sign({ firstname: foundUser.firstname }, JWT_TOKEN_SECRET);
+                token = jsonwebtoken_1.default.sign({ firstname: foundUser.firstname }, JWT_TOKEN_SECRET);
                 res.header("auth-token", token).send({ token: token });
                 return [3 /*break*/, 3];
             case 2:
@@ -154,7 +154,7 @@ var destroy = function (req, res) { return __awaiter(void 0, void 0, void 0, fun
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 2, , 3]);
-                return [4 /*yield*/, store["delete"](req.body.firstname)];
+                return [4 /*yield*/, store.delete(req.body.firstname)];
             case 1:
                 _a.sent();
                 res.json({ status: "success" });
@@ -169,10 +169,10 @@ var destroy = function (req, res) { return __awaiter(void 0, void 0, void 0, fun
     });
 }); };
 var userRoutes = function (app) {
-    app.get("/users", verifyAuthToken_1["default"], index);
-    app.get("/users/:firstname", verifyAuthToken_1["default"], show);
+    app.get("/users", verifyAuthToken_1.default, index);
+    app.get("/users/:firstname", verifyAuthToken_1.default, show);
     app.post("/users/register", register);
     app.post("/users/login", login);
-    app["delete"]("/users", destroy);
+    app.delete("/users", destroy);
 };
-exports["default"] = userRoutes;
+exports.default = userRoutes;

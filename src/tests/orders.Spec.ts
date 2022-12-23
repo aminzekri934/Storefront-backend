@@ -66,20 +66,18 @@ describe("Order Model", () => {
   });
 
   it("INDEX method should return a list of all orders", async () => {
-    // @ts-ignore
-    const [{id,productId,status,quantity, userId }] = await store.index();
+    const [{productId,status,quantity, userId }] = await store.index();
 
-    expect({id,productId,status,quantity, userId }).toEqual({
-     id:1,productId:1,status:"completed",quantity:1, userId:3
+    expect({productId,status,quantity, userId }).toEqual({
+     productId:1,status:"completed",quantity:1, userId:3
     });
   });
 
   it("SHOW method should return the orders of a user", async () => {
-    // @ts-ignore
-    const{id,productId,status,quantity, userId }= await store.show("1");
+    const{productId,status,quantity, userId }= await store.show("1");
 
-    expect({id,productId,status,quantity, userId }).toEqual({
-     id:1,productId:1,status:"completed",quantity:1, userId:3 
+    expect({productId,status,quantity, userId }).toEqual({
+     productId:1,status:"completed",quantity:1, userId:3 
     });
   });
 

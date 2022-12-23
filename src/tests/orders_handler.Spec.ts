@@ -43,7 +43,7 @@ describe("Order Handler", () => {
 
   it("should return success for CREATE order", async () => {
     const response = await request
-      .post("/orders")
+      .post("/orders/products")
       .auth(token, { type: "bearer" })
       .send({ productId:1,status: "completed",quantity:1, userId: 1 });
 
@@ -60,17 +60,6 @@ describe("Order Handler", () => {
 
   it("should return success for READ orders by user id", async () => {
     const response = await request.get("/orders").send("userId=1");
-
-    expect(response.status).toBe(200);
-    expect(response.body).toBeTruthy();
-  });
-
-  it("should return success for CREATE order with product quantity and product id", async () => {
-    const response = await request
-      .post("/orders/products")
-      .auth(token, { type: "bearer" })
-      .send({ status:"completed",quantity: 2, orderId: 1, productId: 1 });
-
     expect(response.status).toBe(200);
     expect(response.body).toBeTruthy();
   });
@@ -87,7 +76,7 @@ describe("Order Handler", () => {
 
   it("should return success for DELETE order by order id", async () => {
     const response = await request
-      .delete("/orders")
+      .delete("/orders/products")
       .auth(token, { type: "bearer" })
       .send({ orderId: "1" });
 

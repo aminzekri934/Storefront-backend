@@ -16,7 +16,7 @@ const index = async (_req: Request, res: Response) => {
 
 const show = async (req: Request, res: Response) => {
  try{
-  const order = await store.show(req.body.userId);
+  const order = await store.show(req.params.userId);
   res.json(order);
 } catch (error) {
   res.status(400);
@@ -54,8 +54,8 @@ const deleteOrder = async (req: Request, res: Response) => {
 const orderRoutes = (app: express.Application) => {
   app.get("/orders", verifyAuthToken, index);
   app.get("/orders/:userId", verifyAuthToken, show);
-  app.post("/orders", verifyAuthToken, createOrder);
-  app.delete("/orders", verifyAuthToken, deleteOrder);
+  app.post("/orders/products", verifyAuthToken, createOrder);
+  app.delete("/orders/products", verifyAuthToken, deleteOrder);
 };
 
 export default orderRoutes;

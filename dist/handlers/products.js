@@ -38,7 +38,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
 var products_1 = require("../models/products");
 var verifyAuthToken_1 = __importDefault(require("./middleware/verifyAuthToken"));
 var store = new products_1.ProductStore();
@@ -90,7 +90,7 @@ var create = function (req, res) { return __awaiter(void 0, void 0, void 0, func
                 _a.trys.push([0, 2, , 3]);
                 product = {
                     name: req.body.name,
-                    price: req.body.price
+                    price: req.body.price,
                 };
                 return [4 /*yield*/, store.create(product)];
             case 1:
@@ -112,7 +112,7 @@ var destroy = function (req, res) { return __awaiter(void 0, void 0, void 0, fun
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 2, , 3]);
-                return [4 /*yield*/, store["delete"](req.body.productName)];
+                return [4 /*yield*/, store.delete(req.body.productName)];
             case 1:
                 _a.sent();
                 res.json({ status: "success" });
@@ -128,8 +128,8 @@ var destroy = function (req, res) { return __awaiter(void 0, void 0, void 0, fun
 }); };
 var productRoutes = function (app) {
     app.get("/products", index);
-    app.get("/products/:id", show);
-    app.post("/products", verifyAuthToken_1["default"], create);
-    app["delete"]("/products", verifyAuthToken_1["default"], destroy);
+    app.get("/products/:productName", show);
+    app.post("/products", verifyAuthToken_1.default, create);
+    app.delete("/products", verifyAuthToken_1.default, destroy);
 };
-exports["default"] = productRoutes;
+exports.default = productRoutes;
