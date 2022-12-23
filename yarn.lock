@@ -138,9 +138,9 @@
   "version" "3.0.1"
 
 "@types/node@*":
-  "integrity" "sha512-VkhBbVo2+2oozlkdHXLrb3zjsRkpdnaU2bXmX8Wgle3PUi569eLRaHGlgETQHR7lLL1w7GiG3h9SnePhxNDecw=="
-  "resolved" "https://registry.npmjs.org/@types/node/-/node-18.11.15.tgz"
-  "version" "18.11.15"
+  "integrity" "sha512-HJSUJmni4BeDHhfzn6nF0sVmd1SMezP7/4F0Lq+aXzmp2xm9O7WXrUtHW/CHlYVtZUbByEvWidHqRtcJXGF2Ng=="
+  "resolved" "https://registry.npmjs.org/@types/node/-/node-18.11.17.tgz"
+  "version" "18.11.17"
 
 "@types/pg@^7.14.7":
   "integrity" "sha512-EnZkZ1OMw9DvNfQkn2MTJrwKmhJYDEs5ujWrPfvseWNoI95N8B4HzU/Ltrq5ZfYxDX/Zg8mTzwr6UAyTjjFvXA=="
@@ -624,6 +624,11 @@
   "resolved" "https://registry.npmjs.org/encodeurl/-/encodeurl-1.0.2.tgz"
   "version" "1.0.2"
 
+"env@^0.0.2":
+  "integrity" "sha512-yP8LfjO4ughSHD/3HgLPinWzexmaOGvRfs2TFx0SZhOm7j1xPi9evjuGcLiNVHIGLmcsgMak4eDbBzlYqGIVxw=="
+  "resolved" "https://registry.npmjs.org/env/-/env-0.0.2.tgz"
+  "version" "0.0.2"
+
 "escalade@^3.1.1":
   "integrity" "sha512-k0er2gUkLf8O0zKJiAhmkTnJlTvINGv7ygDNPbeIsX/TJjGJZHuh9B2UxbsaEkmlEo9MfhrSzmhIlhRlI2GXnw=="
   "resolved" "https://registry.npmjs.org/escalade/-/escalade-3.1.1.tgz"
@@ -930,7 +935,7 @@
   dependencies:
     "colors" "1.4.0"
 
-"jasmine-ts@^0.3.0":
+"jasmine-ts@^0.3.3":
   "integrity" "sha512-ISBmhSe1imdT2V3u681YgIIlpnt68dhdu8l94JeWfL4sYE67bfoHj2Coc1k1ND3u+DxQcHMTn8nCZ7Pr3dV6TQ=="
   "resolved" "https://registry.npmjs.org/jasmine-ts/-/jasmine-ts-0.3.3.tgz"
   "version" "0.3.3"
@@ -945,21 +950,15 @@
     "glob" "^7.1.6"
     "jasmine-core" "^4.5.0"
 
-"jsonwebtoken@^8.5.1":
-  "integrity" "sha512-XjwVfRS6jTMsqYs0EsuJ4LGxXV14zQybNd4L2r0UvbVnSF9Af8x7p5MzbJ90Ioz/9TI41/hTCvznF/loiSzn8w=="
-  "resolved" "https://registry.npmjs.org/jsonwebtoken/-/jsonwebtoken-8.5.1.tgz"
-  "version" "8.5.1"
+"jsonwebtoken@^9.0.0":
+  "integrity" "sha512-tuGfYXxkQGDPnLJ7SibiQgVgeDgfbPq2k2ICcbgqW8WxWLBAxKQM/ZCu/IT8SOSwmaYl4dpTFCW5xZv7YbbWUw=="
+  "resolved" "https://registry.npmjs.org/jsonwebtoken/-/jsonwebtoken-9.0.0.tgz"
+  "version" "9.0.0"
   dependencies:
     "jws" "^3.2.2"
-    "lodash.includes" "^4.3.0"
-    "lodash.isboolean" "^3.0.3"
-    "lodash.isinteger" "^4.0.4"
-    "lodash.isnumber" "^3.0.3"
-    "lodash.isplainobject" "^4.0.6"
-    "lodash.isstring" "^4.0.1"
-    "lodash.once" "^4.0.0"
+    "lodash" "^4.17.21"
     "ms" "^2.1.1"
-    "semver" "^5.6.0"
+    "semver" "^7.3.8"
 
 "jwa@^1.4.1":
   "integrity" "sha512-qiLX/xhEEFKUAJ6FiBMbes3w9ATzyk5W7Hvzpa/SLYdxNtng+gcurvrI7TbACjIXlsJyr05/S1oUhZrc63evQA=="
@@ -990,42 +989,7 @@
   "resolved" "https://registry.npmjs.org/lodash.defaults/-/lodash.defaults-4.2.0.tgz"
   "version" "4.2.0"
 
-"lodash.includes@^4.3.0":
-  "integrity" "sha512-W3Bx6mdkRTGtlJISOvVD/lbqjTlPPUDTMnlXZFnVwi9NKJ6tiAk6LVdlhZMm17VZisqhKcgzpO5Wz91PCt5b0w=="
-  "resolved" "https://registry.npmjs.org/lodash.includes/-/lodash.includes-4.3.0.tgz"
-  "version" "4.3.0"
-
-"lodash.isboolean@^3.0.3":
-  "integrity" "sha512-Bz5mupy2SVbPHURB98VAcw+aHh4vRV5IPNhILUCsOzRmsTmSQ17jIuqopAentWoehktxGd9e/hbIXq980/1QJg=="
-  "resolved" "https://registry.npmjs.org/lodash.isboolean/-/lodash.isboolean-3.0.3.tgz"
-  "version" "3.0.3"
-
-"lodash.isinteger@^4.0.4":
-  "integrity" "sha512-DBwtEWN2caHQ9/imiNeEA5ys1JoRtRfY3d7V9wkqtbycnAmTvRRmbHKDV4a0EYc678/dia0jrte4tjYwVBaZUA=="
-  "resolved" "https://registry.npmjs.org/lodash.isinteger/-/lodash.isinteger-4.0.4.tgz"
-  "version" "4.0.4"
-
-"lodash.isnumber@^3.0.3":
-  "integrity" "sha512-QYqzpfwO3/CWf3XP+Z+tkQsfaLL/EnUlXWVkIk5FUPc4sBdTehEqZONuyRt2P67PXAk+NXmTBcc97zw9t1FQrw=="
-  "resolved" "https://registry.npmjs.org/lodash.isnumber/-/lodash.isnumber-3.0.3.tgz"
-  "version" "3.0.3"
-
-"lodash.isplainobject@^4.0.6":
-  "integrity" "sha512-oSXzaWypCMHkPC3NvBEaPHf0KsA5mvPrOPgQWDsbg8n7orZ290M0BmC/jgRZ4vcJ6DTAhjrsSYgdsW/F+MFOBA=="
-  "resolved" "https://registry.npmjs.org/lodash.isplainobject/-/lodash.isplainobject-4.0.6.tgz"
-  "version" "4.0.6"
-
-"lodash.isstring@^4.0.1":
-  "integrity" "sha512-0wJxfxH1wgO3GrbuP+dTTk7op+6L41QCXbGINEmD+ny/G/eCqGzxyCsh7159S+mgDDcoarnBw6PC1PS5+wUGgw=="
-  "resolved" "https://registry.npmjs.org/lodash.isstring/-/lodash.isstring-4.0.1.tgz"
-  "version" "4.0.1"
-
-"lodash.once@^4.0.0":
-  "integrity" "sha512-Sb487aTOCr9drQVL8pIxOzVhafOjZN9UU54hiN8PU3uAiSV7lx1yYNpbNmex2PK6dSJoNTSJUUswT651yww3Mg=="
-  "resolved" "https://registry.npmjs.org/lodash.once/-/lodash.once-4.1.1.tgz"
-  "version" "4.1.1"
-
-"lodash@^4.17.14":
+"lodash@^4.17.14", "lodash@^4.17.21":
   "integrity" "sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg=="
   "resolved" "https://registry.npmjs.org/lodash/-/lodash-4.17.21.tgz"
   "version" "4.17.21"
@@ -1491,7 +1455,12 @@
   "resolved" "https://registry.npmjs.org/safer-buffer/-/safer-buffer-2.1.2.tgz"
   "version" "2.1.2"
 
-"semver@^5.0.3", "semver@^5.3.0", "semver@^5.6.0":
+"semver@^5.0.3":
+  "integrity" "sha512-sauaDf/PZdVgrLTNYHRtpXa1iRiKcaebiKQ1BJdpQlWH2lCvexQdX55snPFyK7QzpudqbCI0qXFfOasHdyNDGQ=="
+  "resolved" "https://registry.npmjs.org/semver/-/semver-5.7.1.tgz"
+  "version" "5.7.1"
+
+"semver@^5.3.0":
   "integrity" "sha512-sauaDf/PZdVgrLTNYHRtpXa1iRiKcaebiKQ1BJdpQlWH2lCvexQdX55snPFyK7QzpudqbCI0qXFfOasHdyNDGQ=="
   "resolved" "https://registry.npmjs.org/semver/-/semver-5.7.1.tgz"
   "version" "5.7.1"
@@ -1501,14 +1470,7 @@
   "resolved" "https://registry.npmjs.org/semver/-/semver-6.3.0.tgz"
   "version" "6.3.0"
 
-"semver@^7.3.5":
-  "integrity" "sha512-NB1ctGL5rlHrPJtFDVIVzTyQylMLu9N9VICA6HSFJo8MCGVTMW6gfpicwKmmK/dAjTOrqu5l63JJOpDSrAis3A=="
-  "resolved" "https://registry.npmjs.org/semver/-/semver-7.3.8.tgz"
-  "version" "7.3.8"
-  dependencies:
-    "lru-cache" "^6.0.0"
-
-"semver@^7.3.8":
+"semver@^7.3.5", "semver@^7.3.8":
   "integrity" "sha512-NB1ctGL5rlHrPJtFDVIVzTyQylMLu9N9VICA6HSFJo8MCGVTMW6gfpicwKmmK/dAjTOrqu5l63JJOpDSrAis3A=="
   "resolved" "https://registry.npmjs.org/semver/-/semver-7.3.8.tgz"
   "version" "7.3.8"

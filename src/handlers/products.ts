@@ -1,17 +1,27 @@
 import express, { Request, Response } from "express";
 import { Product, ProductStore } from "../models/products";
-//import verifyAuthToken from "../middleware/verifyAuthToken";
+import verifyAuthToken from "./middleware/verifyAuthToken";
 
 const store = new ProductStore();
 
 const index = async (_req: Request, res: Response) => {
+ try{
   const products = await store.index();
   res.json(products);
+} catch (error) {
+  res.status(400);
+  res.json({ error });
+}
 };
 
 const show = async (req: Request, res: Response) => {
-  const product = await store.show(req.params.productName);
-  res.json(product);
+  try{
+   const product = await store.show(req.params.productName);
+   res.json(product);
+  } catch (error) {
+    res.status(400);
+    res.json({ error });
+  }
 };
 
 const create = async (req: Request, res: Response) => {
@@ -42,8 +52,8 @@ const destroy = async (req: Request, res: Response) => {
 const productRoutes = (app: express.Application) => {
   app.get("/products", index);
   app.get("/products/:id", show);
-  //app.post("/products", verifyAuthToken, create);
-  //app.delete("/products", verifyAuthToken, destroy);
+  app.post("/products", verifyAuthToken, create);
+  app.delete("/products", verifyAuthToken, destroy);
 };
 
 export default productRoutes;

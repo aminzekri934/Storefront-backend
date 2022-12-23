@@ -24,6 +24,10 @@ scripts:
 - \c postgres(to connect to it) and \q (to deconnect)
 - npm run test (to run migrations for test database)
 - npm run dev (to run migrations for developing database)
+
+## DATABASE PORT:
+5432
+
 ## Environment variables:
 - ENV=dev
 - POSTGRES_HOST=localhost
@@ -34,6 +38,17 @@ scripts:
 - BCRYPT_SALT_ROUNDS=10
 - BCRYPT_PEPPER=5Ffja@9spfaA#
 - JWT_TOKEN_SECRET=Sog@*Fos2*7
+
+## CONNECTING TO THE DATABASE:
+- ..sh
+- CREATE USER postgres WITH PASSWORD 'password123'; 
+- **or sql :
+- CREATE DATABASE postgres;
+- CREATE DATABASE postgres_test;
+- **granting all privileges in both database tu user:
+- GRANT ALL PRIVILEGES ON DATABASE postgres to postgres;
+- GRANT ALL PRIVILEGES ON DATABASE postgres to postgres_test;
+
 ## Contributer:
 Amine zekri 
 ## Licence:

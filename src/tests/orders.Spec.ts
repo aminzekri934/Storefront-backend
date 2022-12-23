@@ -57,11 +57,11 @@ describe("Order Model", () => {
   });
 
   it("CREATE method should add an order", async () => {
-    const {id,productId,status,quantity, userId } = await store.createOrder({
-     id:1,productId:1,status:"completed",quantity:1, userId:3 });
+    const {productId,status,quantity, userId } = await store.createOrder({
+     productId:1,status:"completed",quantity:1, userId:3 });
 
-    expect({id,productId,status,quantity, userId }).toEqual({
-     id:1,productId:1,status:"completed",quantity:1, userId:3 
+    expect({productId,status,quantity, userId }).toEqual({
+     productId:1,status:"completed",quantity:1, userId:3 
     });
   });
 
@@ -76,23 +76,22 @@ describe("Order Model", () => {
 
   it("SHOW method should return the orders of a user", async () => {
     // @ts-ignore
-    const{id,productId,status,quantity, userId }= await store.show("3");
+    const{id,productId,status,quantity, userId }= await store.show("1");
 
     expect({id,productId,status,quantity, userId }).toEqual({
      id:1,productId:1,status:"completed",quantity:1, userId:3 
     });
   });
 
-  /*it("DELETE order product method should remove an order product by order product id", async () => {
-    const result = await store.deleteOrderProduct("3");
+  it("DELETE order method should remove an order by order id", async () => {
+    const result = await store.deleteOrder("1");
     // @ts-ignore
     expect(result).toBe(undefined);
   });
 
   afterAll(async () => {
-    await orderStore.deleteOrderProduct("2");
     await productStore.delete(productInstance.name);
-    await orderStore.deleteOrder("2");
-    await userStore.delete(userInstance.username);
-  });*/
+    await orderStore.deleteOrder("1");
+    await userStore.delete(userInstance.firstname);
+  });
 });
