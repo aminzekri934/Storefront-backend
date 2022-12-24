@@ -65,10 +65,9 @@ var userInstance = {
     firstname: "Amine",
     lastname: "Zekri"
 };
-var userInstancePassword = "Aoe1y381o";
+var userInstancePassword = "CodDo128ao";
 var productInstance = {
-    id: 1,
-    name: "book",
+    name: "banana",
     price: 4,
 };
 describe("Order Model", function () {
@@ -106,58 +105,84 @@ describe("Order Model", function () {
         expect(store.deleteOrder).toBeDefined();
     });
     it("CREATE method should add an order", function () { return __awaiter(void 0, void 0, void 0, function () {
-        var _a, productId, status, quantity, userId;
-        return __generator(this, function (_b) {
-            switch (_b.label) {
+        var result;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
                 case 0: return [4 /*yield*/, store.createOrder({
-                        productId: 1, status: "completed", quantity: 1, userId: 3
+                        status: "shipped",
+                        userId: 1
                     })];
                 case 1:
-                    _a = _b.sent(), productId = _a.productId, status = _a.status, quantity = _a.quantity, userId = _a.userId;
-                    expect({ productId: productId, status: status, quantity: quantity, userId: userId }).toEqual({
-                        productId: 1, status: "completed", quantity: 1, userId: 3
+                    result = _a.sent();
+                    expect(result).toEqual({
+                        status: "shipped",
+                        userId: 1
                     });
                     return [2 /*return*/];
             }
         });
     }); });
     it("INDEX method should return a list of all orders", function () { return __awaiter(void 0, void 0, void 0, function () {
-        var _a, productId, status, quantity, userId;
+        var _a, status, userId;
         return __generator(this, function (_b) {
             switch (_b.label) {
                 case 0: return [4 /*yield*/, store.index()];
                 case 1:
-                    _a = (_b.sent())[0], productId = _a.productId, status = _a.status, quantity = _a.quantity, userId = _a.userId;
-                    expect({ productId: productId, status: status, quantity: quantity, userId: userId }).toEqual({
-                        productId: 1, status: "completed", quantity: 1, userId: 3
+                    _a = (_b.sent())[0], status = _a.status, userId = _a.userId;
+                    expect({ status: status, userId: userId }).toBe({
+                        status: "shipped",
+                        userId: 1
                     });
                     return [2 /*return*/];
             }
         });
     }); });
     it("SHOW method should return the orders of a user", function () { return __awaiter(void 0, void 0, void 0, function () {
-        var _a, productId, status, quantity, userId;
+        var _a, status, userId;
         return __generator(this, function (_b) {
             switch (_b.label) {
                 case 0: return [4 /*yield*/, store.show("1")];
                 case 1:
-                    _a = _b.sent(), productId = _a.productId, status = _a.status, quantity = _a.quantity, userId = _a.userId;
-                    expect({ productId: productId, status: status, quantity: quantity, userId: userId }).toEqual({
-                        productId: 1, status: "completed", quantity: 1, userId: 3
+                    _a = _b.sent(), status = _a.status, userId = _a.userId;
+                    expect({ status: status, userId: userId }).toBe({
+                        status: "shipped",
+                        userId: 1
                     });
                     return [2 /*return*/];
             }
         });
     }); });
-    it("DELETE order method should remove an order by order id", function () { return __awaiter(void 0, void 0, void 0, function () {
+    it("CREATE order product method should add an order with product quantity and product id", function () { return __awaiter(void 0, void 0, void 0, function () {
         var result;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, store.deleteOrder("1")];
+                case 0: return [4 /*yield*/, store.createOrderProduct({
+                        quantity: 4,
+                        orderId: 1,
+                        productId: 1
+                    })];
                 case 1:
                     result = _a.sent();
-                    // @ts-ignore
-                    expect(result).toBe(undefined);
+                    expect(result).toBe({
+                        quantity: 4,
+                        orderId: 1,
+                        productId: 1
+                    });
+                    return [2 /*return*/];
+            }
+        });
+    }); });
+    it("DELETE order product method should remove an order product by order product id", function () { return __awaiter(void 0, void 0, void 0, function () {
+        var result;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, store.deleteOrderProduct("1")];
+                case 1:
+                    _a.sent();
+                    return [4 /*yield*/, store.index2()];
+                case 2:
+                    result = _a.sent();
+                    expect(result).toEqual([]);
                     return [2 /*return*/];
             }
         });
@@ -165,14 +190,17 @@ describe("Order Model", function () {
     afterAll(function () { return __awaiter(void 0, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, productStore.delete(productInstance.name)];
+                case 0: return [4 /*yield*/, orderStore.deleteOrderProduct("1")];
                 case 1:
                     _a.sent();
-                    return [4 /*yield*/, orderStore.deleteOrder("1")];
+                    return [4 /*yield*/, productStore.delete(productInstance.name)];
                 case 2:
                     _a.sent();
-                    return [4 /*yield*/, userStore.delete(userInstance.firstname)];
+                    return [4 /*yield*/, orderStore.deleteOrder("1")];
                 case 3:
+                    _a.sent();
+                    return [4 /*yield*/, userStore.delete(userInstance.firstname)];
+                case 4:
                     _a.sent();
                     return [2 /*return*/];
             }

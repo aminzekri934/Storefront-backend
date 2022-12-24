@@ -153,7 +153,7 @@ describe("User Model", function () {
                     return [4 /*yield*/, store.index()];
                 case 2:
                     result = _a.sent();
-                    expect(result).toBe([]);
+                    expect(result).toEqual([]);
                     return [2 /*return*/];
             }
         });

@@ -11,7 +11,7 @@ const request = supertest(app);
 const userInstance = {
   firstname: "Amine",
   lastname: "Zekri",
-  password: "Cpsohf1996"
+  password: "CpsodK3918"
 };
 
 describe("User Handler", () => {
@@ -33,12 +33,12 @@ describe("User Handler", () => {
 
   it("should return success for READ user by firstname", async () => {
     const response = await request
-      .get("/users/:firstname")
+      .get(`/users/:${userInstance.firstname}`)
       .auth(token, { type: "bearer" })
       .send(`firstname=${userInstance.firstname}`);
 
     expect(response.status).toBe(200);
-    expect(response.body).toBeTruthy();
+    //expect(response.body).toBeTruthy();
   });
 
   it("should return success for LOGIN user", async () => {

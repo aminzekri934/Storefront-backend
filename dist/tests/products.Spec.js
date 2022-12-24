@@ -58,7 +58,7 @@ describe("Product Model", function () {
                 case 0: return [4 /*yield*/, store.create({ name: 'udacity_full_stack_course', price: 250 })];
                 case 1:
                     result = _a.sent();
-                    expect(result).toEqual({ name: 'udacity_full_stack_course', price: 250 });
+                    expect({ name: result.name, price: result.price }).toEqual({ name: 'udacity_full_stack_course', price: 250 });
                     return [2 /*return*/];
             }
         });
@@ -70,9 +70,9 @@ describe("Product Model", function () {
                 case 0: return [4 /*yield*/, store.index()];
                 case 1:
                     result = _a.sent();
-                    expect(result).toEqual([{
-                            name: 'udacity_full_stack_course', price: 250
-                        }]);
+                    expect({ name: result[0].name, price: result[0].price }).toEqual({
+                        name: 'udacity_full_stack_course', price: 250
+                    });
                     return [2 /*return*/];
             }
         });
@@ -84,7 +84,7 @@ describe("Product Model", function () {
                 case 0: return [4 /*yield*/, store.show('udacity_full_stack_course')];
                 case 1:
                     result = _a.sent();
-                    expect(result).toEqual({
+                    expect({ name: result.name, price: result.price }).toEqual({
                         name: 'udacity_full_stack_course', price: 250
                     });
                     return [2 /*return*/];

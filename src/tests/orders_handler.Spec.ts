@@ -19,11 +19,11 @@ const userInstance = {
   lastname: "Zekri"
 };
 
-const userInstancePassword = "ZugkUo1D";
+const userInstancePassword = "CodDo128ao";
 
 const productInstance = {
-  name: "book",
-  price: 44,
+  name: "banana",
+  price: 4,
 };
 
 describe("Order Handler", () => {
@@ -43,9 +43,9 @@ describe("Order Handler", () => {
 
   it("should return success for CREATE order", async () => {
     const response = await request
-      .post("/orders/products")
+      .post("/orders")
       .auth(token, { type: "bearer" })
-      .send({ productId:1,status: "completed",quantity:1, userId: 1 });
+      .send({ status: "ordered", userId: 1 });
 
     expect(response.status).toBe(200);
     expect(response.body).toBeTruthy();
@@ -58,15 +58,26 @@ describe("Order Handler", () => {
     expect(response.body).toBeTruthy();
   });
 
-  it("should return success for READ orders by user id", async () => {
-    const response = await request.get("/orders").send("userId=1");
+  it("should return success for READ orders by id", async () => {
+    const response = await request.get("/orders/:1").send("Id=1");
+
+    expect(response.status).toBe(200);
+    expect(response.body).toBeTruthy();
+  });
+
+  it("should return success for CREATE order with product quantity and product id", async () => {
+    const response = await request
+      .post("/orders/:1/products")
+      .auth(token, { type: "bearer" })
+      .send({ quantity: 2, orderId: 1, productId: 1 });
+
     expect(response.status).toBe(200);
     expect(response.body).toBeTruthy();
   });
 
   it("should return success for DELETE order product with order product id", async () => {
     const response = await request
-      .delete("/orders/products")
+      .delete("/orders/:1/products")
       .auth(token, { type: "bearer" })
       .send({ orderProductId: "1" });
 
@@ -76,7 +87,7 @@ describe("Order Handler", () => {
 
   it("should return success for DELETE order by order id", async () => {
     const response = await request
-      .delete("/orders/products")
+      .delete("/orders")
       .auth(token, { type: "bearer" })
       .send({ orderId: "1" });
 

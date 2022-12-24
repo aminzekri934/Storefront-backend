@@ -49,7 +49,7 @@ var request = (0, supertest_1.default)(server_1.default);
 var userInstance = {
     firstname: "Amine",
     lastname: "Zekri",
-    password: "Cpsohf1996"
+    password: "CpsodK3918"
 };
 describe("User Handler", function () {
     it("should return success for CREATE user", function () { return __awaiter(void 0, void 0, void 0, function () {
@@ -85,13 +85,12 @@ describe("User Handler", function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, request
-                        .get("/users/:firstname")
+                        .get("/users/:".concat(userInstance.firstname))
                         .auth(token, { type: "bearer" })
                         .send("firstname=".concat(userInstance.firstname))];
                 case 1:
                     response = _a.sent();
                     expect(response.status).toBe(200);
-                    expect(response.body).toBeTruthy();
                     return [2 /*return*/];
             }
         });

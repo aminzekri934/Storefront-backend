@@ -1,9 +1,14 @@
 import Client from "../database";
+
 export type Order = {
-productId:number;
-status:string;
-quantity: number;
-userId:number
+  status: string;
+  userId: number;
+};
+
+export type OrderProduct = {
+  quantity: number;
+  orderId: number;
+  productId: number;
 };
 
 export class OrderStore {
@@ -12,18 +17,20 @@ export class OrderStore {
       const sql = "SELECT * from orders";
       const conn = await Client.connect();
       const result = await conn.query(sql);
+
       conn.release();
+
       return result.rows;
     } catch (err) {
       throw new Error(`Unable to get all orders. Error: ${err}`);
     }
   }
 
-  async show(userId: string): Promise<Order> {
+  async show(id: string): Promise<Order> {
     try {
       const sql = "SELECT * FROM orders WHERE id=($1)";
       const conn = await Client.connect();
-      const result = await conn.query(sql, [userId]);
+      const result = await conn.query(sql, [id]);
       const order = result.rows[0];
 
       conn.release();
@@ -31,7 +38,7 @@ export class OrderStore {
       return order;
     } catch (err) {
       throw new Error(
-        `Unable to find orders from user ${userId}. Error: ${err}`
+        `Unable to find orders from user ${id}. Error: ${err}`
       );
     }
   }
@@ -39,14 +46,27 @@ export class OrderStore {
   async createOrder(o: Order): Promise<Order> {
     try {
       const sql =
-        "INSERT INTO orders (product_id,status,quantity,user_id) VALUES($1,$2,$3,$4) RETURNING *";
+        "INSERT INTO orders (status, user_id) VALUES($1, $2) RETURNING *";
       const conn = await Client.connect();
-      const result = await conn.query(sql, [o.productId,o.status,o.quantity,o.userId]);
+      const result = await conn.query(sql, [o.status, o.userId]);
       const order = result.rows[0];
       conn.release();
       return order;
     } catch (err) {
       throw new Error(`Unable to create order. Error: ${err}`);
+    }
+  }
+  async index2(): Promise<OrderProduct[]> {
+    try {
+      const sql = "SELECT * from order_products";
+      const conn = await Client.connect();
+      const result = await conn.query(sql);
+
+      conn.release();
+
+      return result.rows;
+    } catch (err) {
+      throw new Error(`Unable to get all order_products. Error: ${err}`);
     }
   }
 
@@ -56,10 +76,51 @@ export class OrderStore {
       const conn = await Client.connect();
       const result = await conn.query(sql, [orderId]);
       const order = result.rows[0];
+
       conn.release();
+
       return order;
     } catch (err) {
       throw new Error(`Unable to delete order ${orderId}. Error: ${err}`);
+    }
+  }
+
+  async createOrderProduct(o: OrderProduct): Promise<OrderProduct> {
+    try {
+      const sql =
+        "INSERT INTO order_products (quantity, order_id, product_id) VALUES($1, $2, $3) RETURNING *";
+      const conn = await Client.connect();
+      const result = await conn.query(sql, [
+        o.quantity,
+        o.orderId,
+        o.productId,
+      ]);
+      const order = result.rows[0];
+
+      conn.release();
+
+      return order;
+    } catch (err) {
+      throw new Error(
+        `Unable to add product ${o.productId} to order ${o.orderId}: ${err}`
+      );
+    }
+  }
+
+  async deleteOrderProduct(orderProductId: string): Promise<Order> {
+    try {
+      const sql = "DELETE FROM order_products WHERE id=($1)";
+      const conn = await Client.connect();
+      const result = await conn.query(sql, [orderProductId]);
+      const order = result.rows[0];
+
+      conn.release();
+
+      return order;
+    } catch (err) {
+      throw new Error(
+        `Unable to delete order product ${orderProductId}. Error: ${err}`
+      );
     }
   }
 }

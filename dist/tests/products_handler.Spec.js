@@ -85,12 +85,11 @@ describe("Product Handler", function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, request
-                        .get("/products/:productName")
+                        .get("/products/:".concat(productInstance.name))
                         .send("productName=".concat(productInstance.name))];
                 case 1:
                     response = _a.sent();
                     expect(response.status).toBe(200);
-                    expect(response.body).toBeTruthy();
                     return [2 /*return*/];
             }
         });

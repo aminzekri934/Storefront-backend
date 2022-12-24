@@ -68,7 +68,7 @@ var OrderStore = /** @class */ (function () {
             });
         });
     };
-    OrderStore.prototype.show = function (userId) {
+    OrderStore.prototype.show = function (id) {
         return __awaiter(this, void 0, void 0, function () {
             var sql, conn, result, order, err_2;
             return __generator(this, function (_a) {
@@ -79,7 +79,7 @@ var OrderStore = /** @class */ (function () {
                         return [4 /*yield*/, database_1.default.connect()];
                     case 1:
                         conn = _a.sent();
-                        return [4 /*yield*/, conn.query(sql, [userId])];
+                        return [4 /*yield*/, conn.query(sql, [id])];
                     case 2:
                         result = _a.sent();
                         order = result.rows[0];
@@ -87,7 +87,7 @@ var OrderStore = /** @class */ (function () {
                         return [2 /*return*/, order];
                     case 3:
                         err_2 = _a.sent();
-                        throw new Error("Unable to find orders from user ".concat(userId, ". Error: ").concat(err_2));
+                        throw new Error("Unable to find orders from user ".concat(id, ". Error: ").concat(err_2));
                     case 4: return [2 /*return*/];
                 }
             });
@@ -100,11 +100,11 @@ var OrderStore = /** @class */ (function () {
                 switch (_a.label) {
                     case 0:
                         _a.trys.push([0, 3, , 4]);
-                        sql = "INSERT INTO orders (product_id,status,quantity,user_id) VALUES($1,$2,$3,$4) RETURNING *";
+                        sql = "INSERT INTO orders (status, user_id) VALUES($1, $2) RETURNING *";
                         return [4 /*yield*/, database_1.default.connect()];
                     case 1:
                         conn = _a.sent();
-                        return [4 /*yield*/, conn.query(sql, [o.productId, o.status, o.quantity, o.userId])];
+                        return [4 /*yield*/, conn.query(sql, [o.status, o.userId])];
                     case 2:
                         result = _a.sent();
                         order = result.rows[0];
@@ -118,9 +118,33 @@ var OrderStore = /** @class */ (function () {
             });
         });
     };
+    OrderStore.prototype.index2 = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var sql, conn, result, err_4;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 3, , 4]);
+                        sql = "SELECT * from order_products";
+                        return [4 /*yield*/, database_1.default.connect()];
+                    case 1:
+                        conn = _a.sent();
+                        return [4 /*yield*/, conn.query(sql)];
+                    case 2:
+                        result = _a.sent();
+                        conn.release();
+                        return [2 /*return*/, result.rows];
+                    case 3:
+                        err_4 = _a.sent();
+                        throw new Error("Unable to get all order_products. Error: ".concat(err_4));
+                    case 4: return [2 /*return*/];
+                }
+            });
+        });
+    };
     OrderStore.prototype.deleteOrder = function (orderId) {
         return __awaiter(this, void 0, void 0, function () {
-            var sql, conn, result, order, err_4;
+            var sql, conn, result, order, err_5;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -136,8 +160,62 @@ var OrderStore = /** @class */ (function () {
                         conn.release();
                         return [2 /*return*/, order];
                     case 3:
-                        err_4 = _a.sent();
-                        throw new Error("Unable to delete order ".concat(orderId, ". Error: ").concat(err_4));
+                        err_5 = _a.sent();
+                        throw new Error("Unable to delete order ".concat(orderId, ". Error: ").concat(err_5));
+                    case 4: return [2 /*return*/];
+                }
+            });
+        });
+    };
+    OrderStore.prototype.createOrderProduct = function (o) {
+        return __awaiter(this, void 0, void 0, function () {
+            var sql, conn, result, order, err_6;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 3, , 4]);
+                        sql = "INSERT INTO order_products (quantity, order_id, product_id) VALUES($1, $2, $3) RETURNING *";
+                        return [4 /*yield*/, database_1.default.connect()];
+                    case 1:
+                        conn = _a.sent();
+                        return [4 /*yield*/, conn.query(sql, [
+                                o.quantity,
+                                o.orderId,
+                                o.productId,
+                            ])];
+                    case 2:
+                        result = _a.sent();
+                        order = result.rows[0];
+                        conn.release();
+                        return [2 /*return*/, order];
+                    case 3:
+                        err_6 = _a.sent();
+                        throw new Error("Unable to add product ".concat(o.productId, " to order ").concat(o.orderId, ": ").concat(err_6));
+                    case 4: return [2 /*return*/];
+                }
+            });
+        });
+    };
+    OrderStore.prototype.deleteOrderProduct = function (orderProductId) {
+        return __awaiter(this, void 0, void 0, function () {
+            var sql, conn, result, order, err_7;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 3, , 4]);
+                        sql = "DELETE FROM order_products WHERE id=($1)";
+                        return [4 /*yield*/, database_1.default.connect()];
+                    case 1:
+                        conn = _a.sent();
+                        return [4 /*yield*/, conn.query(sql, [orderProductId])];
+                    case 2:
+                        result = _a.sent();
+                        order = result.rows[0];
+                        conn.release();
+                        return [2 /*return*/, order];
+                    case 3:
+                        err_7 = _a.sent();
+                        throw new Error("Unable to delete order product ".concat(orderProductId, ". Error: ").concat(err_7));
                     case 4: return [2 /*return*/];
                 }
             });

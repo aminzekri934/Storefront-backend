@@ -19,18 +19,18 @@ describe("Product Model", () => {
 
   it('create method should add a product', async () => {
     const result = await store.create({name:'udacity_full_stack_course',price: 250});
-    expect(result).toEqual({name:'udacity_full_stack_course',price: 250});
+    expect({name:result.name,price:result.price}).toEqual({name:'udacity_full_stack_course',price: 250});
   });
 
   it('index method should return a list of products', async () => {
     const result = await store.index();
-    expect(result).toEqual([{
-    name:'udacity_full_stack_course',price: 250}]);
+    expect({name:result[0].name,price:result[0].price}).toEqual({
+    name:'udacity_full_stack_course',price: 250});
   });
 
   it('show method should return the correct product', async () => {
     const result = await store.show('udacity_full_stack_course');
-    expect(result).toEqual({
+    expect({name:result.name,price:result.price}).toEqual({
     name:'udacity_full_stack_course',price: 250
     });
   });

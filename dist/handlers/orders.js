@@ -43,7 +43,7 @@ var orders_1 = require("../models/orders");
 var verifyAuthToken_1 = __importDefault(require("./middleware/verifyAuthToken"));
 var store = new orders_1.OrderStore();
 var index = function (_req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var orders, error_1;
+    var orders, err_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -54,52 +54,6 @@ var index = function (_req, res) { return __awaiter(void 0, void 0, void 0, func
                 res.json(orders);
                 return [3 /*break*/, 3];
             case 2:
-                error_1 = _a.sent();
-                res.status(400);
-                res.json({ error: error_1 });
-                return [3 /*break*/, 3];
-            case 3: return [2 /*return*/];
-        }
-    });
-}); };
-var show = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var order, error_2;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0:
-                _a.trys.push([0, 2, , 3]);
-                return [4 /*yield*/, store.show(req.params.userId)];
-            case 1:
-                order = _a.sent();
-                res.json(order);
-                return [3 /*break*/, 3];
-            case 2:
-                error_2 = _a.sent();
-                res.status(400);
-                res.json({ error: error_2 });
-                return [3 /*break*/, 3];
-            case 3: return [2 /*return*/];
-        }
-    });
-}); };
-var createOrder = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var order, newOrder, err_1;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0:
-                _a.trys.push([0, 2, , 3]);
-                order = {
-                    productId: req.body.productId,
-                    status: req.body.status,
-                    quantity: req.body.quantity,
-                    userId: req.body.userId,
-                };
-                return [4 /*yield*/, store.createOrder(order)];
-            case 1:
-                newOrder = _a.sent();
-                res.json(newOrder);
-                return [3 /*break*/, 3];
-            case 2:
                 err_1 = _a.sent();
                 res.status(400);
                 res.json(err_1);
@@ -108,8 +62,52 @@ var createOrder = function (req, res) { return __awaiter(void 0, void 0, void 0,
         }
     });
 }); };
+var show = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var order, err_2;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                _a.trys.push([0, 2, , 3]);
+                return [4 /*yield*/, store.show(req.params.id)];
+            case 1:
+                order = _a.sent();
+                res.json(order);
+                return [3 /*break*/, 3];
+            case 2:
+                err_2 = _a.sent();
+                res.status(400);
+                res.json(err_2);
+                return [3 /*break*/, 3];
+            case 3: return [2 /*return*/];
+        }
+    });
+}); };
+var createOrder = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var order, newOrder, err_3;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                _a.trys.push([0, 2, , 3]);
+                order = {
+                    status: req.body.status,
+                    userId: req.body.userId,
+                };
+                return [4 /*yield*/, store.createOrder(order)];
+            case 1:
+                newOrder = _a.sent();
+                res.json(newOrder);
+                return [3 /*break*/, 3];
+            case 2:
+                err_3 = _a.sent();
+                res.status(400);
+                res.json(err_3);
+                return [3 /*break*/, 3];
+            case 3: return [2 /*return*/];
+        }
+    });
+}); };
 var deleteOrder = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var error_3;
+    var error_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -120,18 +118,67 @@ var deleteOrder = function (req, res) { return __awaiter(void 0, void 0, void 0,
                 res.json({ status: "success" });
                 return [3 /*break*/, 3];
             case 2:
-                error_3 = _a.sent();
+                error_1 = _a.sent();
                 res.status(400);
-                res.json({ error: error_3 });
+                res.json({ error: error_1 });
+                return [3 /*break*/, 3];
+            case 3: return [2 /*return*/];
+        }
+    });
+}); };
+var createOrderProduct = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var orderProduct, addedProduct, err_4;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                orderProduct = {
+                    quantity: req.body.quantity,
+                    orderId: req.body.orderId,
+                    productId: req.body.productId,
+                };
+                _a.label = 1;
+            case 1:
+                _a.trys.push([1, 3, , 4]);
+                return [4 /*yield*/, store.createOrderProduct(orderProduct)];
+            case 2:
+                addedProduct = _a.sent();
+                res.json(addedProduct);
+                return [3 /*break*/, 4];
+            case 3:
+                err_4 = _a.sent();
+                res.status(400);
+                res.json(err_4);
+                return [3 /*break*/, 4];
+            case 4: return [2 /*return*/];
+        }
+    });
+}); };
+var deleteOrderProduct = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var error_2;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                _a.trys.push([0, 2, , 3]);
+                return [4 /*yield*/, store.deleteOrderProduct(req.body.orderProductId)];
+            case 1:
+                _a.sent();
+                res.json({ status: "success" });
+                return [3 /*break*/, 3];
+            case 2:
+                error_2 = _a.sent();
+                res.status(400);
+                res.json({ error: error_2 });
                 return [3 /*break*/, 3];
             case 3: return [2 /*return*/];
         }
     });
 }); };
 var orderRoutes = function (app) {
-    app.get("/orders", verifyAuthToken_1.default, index);
-    app.get("/orders/:userId", verifyAuthToken_1.default, show);
-    app.post("/orders/products", verifyAuthToken_1.default, createOrder);
-    app.delete("/orders/products", verifyAuthToken_1.default, deleteOrder);
+    app.get("/orders", index);
+    app.get("/orders/:Id", show);
+    app.post("/orders", verifyAuthToken_1.default, createOrder);
+    app.delete("/orders", verifyAuthToken_1.default, deleteOrder);
+    app.post("/orders/:id/products", verifyAuthToken_1.default, createOrderProduct);
+    app.delete("/orders/:id/products", verifyAuthToken_1.default, deleteOrderProduct);
 };
 exports.default = orderRoutes;

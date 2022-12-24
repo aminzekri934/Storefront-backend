@@ -66,10 +66,10 @@ var userInstance = {
     firstname: "Amine",
     lastname: "Zekri"
 };
-var userInstancePassword = "ZugkUo1D";
+var userInstancePassword = "CodDo128ao";
 var productInstance = {
-    name: "book",
-    price: 44,
+    name: "banana",
+    price: 4,
 };
 describe("Order Handler", function () {
     beforeAll(function () { return __awaiter(void 0, void 0, void 0, function () {
@@ -98,13 +98,12 @@ describe("Order Handler", function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, request
-                        .post("/orders/products")
+                        .post("/orders")
                         .auth(token, { type: "bearer" })
-                        .send({ productId: 1, status: "completed", quantity: 1, userId: 1 })];
+                        .send({ status: "ordered", userId: 1 })];
                 case 1:
                     response = _a.sent();
                     expect(response.status).toBe(200);
-                    expect(response.body).toBeTruthy();
                     return [2 /*return*/];
             }
         });
@@ -117,16 +116,30 @@ describe("Order Handler", function () {
                 case 1:
                     response = _a.sent();
                     expect(response.status).toBe(200);
-                    expect(response.body).toBeTruthy();
                     return [2 /*return*/];
             }
         });
     }); });
-    it("should return success for READ orders by user id", function () { return __awaiter(void 0, void 0, void 0, function () {
+    it("should return success for READ orders by id", function () { return __awaiter(void 0, void 0, void 0, function () {
         var response;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, request.get("/orders").send("userId=1")];
+                case 0: return [4 /*yield*/, request.get("/orders/:1").send("Id=1")];
+                case 1:
+                    response = _a.sent();
+                    expect(response.status).toBe(200);
+                    return [2 /*return*/];
+            }
+        });
+    }); });
+    it("should return success for CREATE order with product quantity and product id", function () { return __awaiter(void 0, void 0, void 0, function () {
+        var response;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, request
+                        .post("/orders/:1/products")
+                        .auth(token, { type: "bearer" })
+                        .send({ quantity: 2, orderId: 1, productId: 1 })];
                 case 1:
                     response = _a.sent();
                     expect(response.status).toBe(200);
@@ -140,7 +153,7 @@ describe("Order Handler", function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, request
-                        .delete("/orders/products")
+                        .delete("/orders/:1/products")
                         .auth(token, { type: "bearer" })
                         .send({ orderProductId: "1" })];
                 case 1:
@@ -156,7 +169,7 @@ describe("Order Handler", function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, request
-                        .delete("/orders/products")
+                        .delete("/orders")
                         .auth(token, { type: "bearer" })
                         .send({ orderId: "1" })];
                 case 1:

@@ -91,6 +91,6 @@ describe("User Model", () => {
   it("DELETE method should delete a user by firstname", async () => {
     await store.delete(userInstance.firstname);
     const result = await store.index();
-    expect(result).toBe([]);
+    expect(result).toEqual([]);
   });
 });
