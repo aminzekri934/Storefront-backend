@@ -71,9 +71,13 @@ var productInstance = {
     name: "banana",
     price: 4,
 };
+var order_id;
+var user_Id;
+var order_product_id;
+var product_Id;
 describe("Order Handler", function () {
     beforeAll(function () { return __awaiter(void 0, void 0, void 0, function () {
-        var pepperedPassword, salt, hashPassword, user;
+        var pepperedPassword, salt, hashPassword, user, user1, product1;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -85,10 +89,12 @@ describe("Order Handler", function () {
                     user = __assign(__assign({}, userInstance), { password: hashPassword });
                     return [4 /*yield*/, userStore.create(user)];
                 case 2:
-                    _a.sent();
+                    user1 = _a.sent();
+                    user_Id = parseInt(user1.id);
                     return [4 /*yield*/, productStore.create(productInstance)];
                 case 3:
-                    _a.sent();
+                    product1 = _a.sent();
+                    product_Id = parseInt(product1.id);
                     return [2 /*return*/];
             }
         });
@@ -100,10 +106,12 @@ describe("Order Handler", function () {
                 case 0: return [4 /*yield*/, request
                         .post("/orders")
                         .auth(token, { type: "bearer" })
-                        .send({ status: "ordered", userId: 1 })];
+                        .send({ status: "shipped", userId: user_Id })];
                 case 1:
                     response = _a.sent();
+                    order_id = response.body.id;
                     expect(response.status).toBe(200);
+                    expect(response.body).toBeTruthy();
                     return [2 /*return*/];
             }
         });
@@ -124,7 +132,7 @@ describe("Order Handler", function () {
         var response;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, request.get("/orders/:1").send("Id=1")];
+                case 0: return [4 /*yield*/, request.get("/orders/:".concat(order_id)).send("id:".concat(order_id))];
                 case 1:
                     response = _a.sent();
                     expect(response.status).toBe(200);
@@ -137,13 +145,13 @@ describe("Order Handler", function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, request
-                        .post("/orders/:1/products")
+                        .post("/orders/:".concat(order_id, "/products"))
                         .auth(token, { type: "bearer" })
-                        .send({ quantity: 2, orderId: 1, productId: 1 })];
+                        .send({ quantity: 2, orderId: order_id, productId: product_Id })];
                 case 1:
                     response = _a.sent();
+                    order_product_id = response.body.id;
                     expect(response.status).toBe(200);
-                    expect(response.body).toBeTruthy();
                     return [2 /*return*/];
             }
         });
@@ -153,13 +161,12 @@ describe("Order Handler", function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, request
-                        .delete("/orders/:1/products")
+                        .delete("/orders/:".concat(order_id, "/products"))
                         .auth(token, { type: "bearer" })
-                        .send({ orderProductId: "1" })];
+                        .send({ orderProductId: "".concat(order_product_id) })];
                 case 1:
                     response = _a.sent();
                     expect(response.status).toBe(200);
-                    expect(response.body).toBeTruthy();
                     return [2 /*return*/];
             }
         });
@@ -171,11 +178,10 @@ describe("Order Handler", function () {
                 case 0: return [4 /*yield*/, request
                         .delete("/orders")
                         .auth(token, { type: "bearer" })
-                        .send({ orderId: "1" })];
+                        .send({ orderId: "".concat(order_id) })];
                 case 1:
                     response = _a.sent();
                     expect(response.status).toBe(200);
-                    expect(response.body).toBeTruthy();
                     return [2 /*return*/];
             }
         });

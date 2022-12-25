@@ -68,11 +68,15 @@ var userInstance = {
 var userInstancePassword = "CodDo128ao";
 var productInstance = {
     name: "banana",
-    price: 4,
+    price: 4
 };
+var order_id;
+var user_Id;
+var order_product_id;
+var product_Id;
 describe("Order Model", function () {
     beforeAll(function () { return __awaiter(void 0, void 0, void 0, function () {
-        var pepperedPassword, salt, hashPassword, user;
+        var pepperedPassword, salt, hashPassword, user, user1, product1;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -84,10 +88,12 @@ describe("Order Model", function () {
                     user = __assign(__assign({}, userInstance), { password: hashPassword });
                     return [4 /*yield*/, userStore.create(user)];
                 case 2:
-                    _a.sent();
+                    user1 = _a.sent();
+                    user_Id = parseInt(user1.id);
                     return [4 /*yield*/, productStore.create(productInstance)];
                 case 3:
-                    _a.sent();
+                    product1 = _a.sent();
+                    product_Id = parseInt(product1.id);
                     return [2 /*return*/];
             }
         });
@@ -110,44 +116,36 @@ describe("Order Model", function () {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, store.createOrder({
                         status: "shipped",
-                        userId: 1
+                        userId: user_Id
                     })];
                 case 1:
                     result = _a.sent();
-                    expect(result).toEqual({
-                        status: "shipped",
-                        userId: 1
-                    });
+                    order_id = parseInt(result.id);
+                    expect(result.status).toEqual("shipped");
                     return [2 /*return*/];
             }
         });
     }); });
     it("INDEX method should return a list of all orders", function () { return __awaiter(void 0, void 0, void 0, function () {
-        var _a, status, userId;
-        return __generator(this, function (_b) {
-            switch (_b.label) {
+        var result;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
                 case 0: return [4 /*yield*/, store.index()];
                 case 1:
-                    _a = (_b.sent())[0], status = _a.status, userId = _a.userId;
-                    expect({ status: status, userId: userId }).toBe({
-                        status: "shipped",
-                        userId: 1
-                    });
+                    result = _a.sent();
+                    expect(result[0].status).toEqual("shipped");
                     return [2 /*return*/];
             }
         });
     }); });
     it("SHOW method should return the orders of a user", function () { return __awaiter(void 0, void 0, void 0, function () {
-        var _a, status, userId;
-        return __generator(this, function (_b) {
-            switch (_b.label) {
-                case 0: return [4 /*yield*/, store.show("1")];
+        var result;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, store.show("".concat(user_Id))];
                 case 1:
-                    _a = _b.sent(), status = _a.status, userId = _a.userId;
-                    expect({ status: status, userId: userId }).toBe({
-                        status: "shipped",
-                        userId: 1
-                    });
+                    result = _a.sent();
+                    expect(result.status).toEqual("shipped");
                     return [2 /*return*/];
             }
         });
@@ -158,16 +156,13 @@ describe("Order Model", function () {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, store.createOrderProduct({
                         quantity: 4,
-                        orderId: 1,
-                        productId: 1
+                        orderId: order_id,
+                        productId: product_Id
                     })];
                 case 1:
                     result = _a.sent();
-                    expect(result).toBe({
-                        quantity: 4,
-                        orderId: 1,
-                        productId: 1
-                    });
+                    order_product_id = parseInt(result.id);
+                    expect(result.quantity).toEqual(4);
                     return [2 /*return*/];
             }
         });
@@ -176,13 +171,11 @@ describe("Order Model", function () {
         var result;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, store.deleteOrderProduct("1")];
+                case 0: return [4 /*yield*/, store.deleteOrderProduct("".concat(order_product_id))];
                 case 1:
-                    _a.sent();
-                    return [4 /*yield*/, store.index2()];
-                case 2:
                     result = _a.sent();
-                    expect(result).toEqual([]);
+                    // @ts-ignore
+                    expect(result).toBe(undefined);
                     return [2 /*return*/];
             }
         });
@@ -190,13 +183,13 @@ describe("Order Model", function () {
     afterAll(function () { return __awaiter(void 0, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, orderStore.deleteOrderProduct("1")];
+                case 0: return [4 /*yield*/, orderStore.deleteOrderProduct("".concat(order_product_id))];
                 case 1:
                     _a.sent();
-                    return [4 /*yield*/, productStore.delete(productInstance.name)];
+                    return [4 /*yield*/, orderStore.deleteOrder("".concat(order_id))];
                 case 2:
                     _a.sent();
-                    return [4 /*yield*/, orderStore.deleteOrder("1")];
+                    return [4 /*yield*/, productStore.delete(productInstance.name)];
                 case 3:
                     _a.sent();
                     return [4 /*yield*/, userStore.delete(userInstance.firstname)];

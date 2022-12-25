@@ -21,9 +21,12 @@ const userInstancePassword = "CodDo128ao";
 
 const productInstance = {
   name: "banana",
-  price: 4,
+  price: 4
 };
-
+let order_id:number;
+let user_Id: number ;
+let order_product_id:number;
+let product_Id:number;
 describe("Order Model", () => {
   beforeAll(async () => {
     const pepperedPassword = `${userInstancePassword}${BCRYPT_PEPPER}`;
@@ -34,9 +37,10 @@ describe("Order Model", () => {
       ...userInstance,
       password: hashPassword as string,
     };
-    await userStore.create(user);
-
-    await productStore.create(productInstance);
+    const  user1 =await userStore.create(user);
+    user_Id = parseInt(user1.id);  
+    const product1= await productStore.create(productInstance);
+    product_Id= parseInt(product1.id as unknown as string)
   });
 
   it("should have an INDEX method", () => {
@@ -57,57 +61,53 @@ describe("Order Model", () => {
 
   it("CREATE method should add an order", async () => {
     const result = await store.createOrder({
-      status: "shipped",
-      userId: 1
+      status: "shipped", 
+      userId: user_Id
     });
-
-    expect(result).toEqual({
-      status: "shipped",
-      userId: 1
-    });
+    order_id=parseInt(result.id as unknown as string);
+    expect(result.status).toEqual( "shipped" 
+    );
   });
 
   it("INDEX method should return a list of all orders", async () => {
-    const [{ status, userId }] = await store.index();
+    // @ts-ignore
+    const result = await store.index();
 
-    expect({ status, userId }).toBe({
-      status: "shipped",
-      userId: 1
-    });
+    expect( result[0].status ).toEqual( "shipped"
+    );
   });
 
   it("SHOW method should return the orders of a user", async () => {
-    const { status, userId } = await store.show("1");
-    expect({ status, userId }).toBe({
-      status: "shipped",
-      userId: 1
-    });
+    // @ts-ignore
+    const result = await store.show(`${user_Id}`);
+
+    expect(result.status).toEqual(
+       "shipped"
+    );
   });
 
   it("CREATE order product method should add an order with product quantity and product id", async () => {
-    const result= await store.createOrderProduct({
+    // @ts-ignore
+    const result = await store.createOrderProduct({
       quantity: 4,
-      orderId: 1,
-      productId: 1
+      orderId: order_id,
+      productId: product_Id
     });
-
-    expect(result).toBe({
-      quantity: 4,
-      orderId: 1,
-      productId: 1
-    });
+    order_product_id=parseInt(result.id as unknown as string)
+    expect(result.quantity).toEqual( 4
+    );
   });
 
   it("DELETE order product method should remove an order product by order product id", async () => {
-    await store.deleteOrderProduct("1");
-    const result = await store.index2(); 
-    expect(result).toEqual([]);
+    const result = await store.deleteOrderProduct(`${order_product_id}`);
+    // @ts-ignore
+    expect(result).toBe(undefined);
   });
 
   afterAll(async () => {
-    await orderStore.deleteOrderProduct("1");
+    await orderStore.deleteOrderProduct(`${order_product_id}`);
+    await orderStore.deleteOrder(`${order_id}`);
     await productStore.delete(productInstance.name);
-    await orderStore.deleteOrder("1");
     await userStore.delete(userInstance.firstname);
   });
 });

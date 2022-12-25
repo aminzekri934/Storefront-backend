@@ -55,10 +55,10 @@ describe("Product Model", function () {
         var result;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, store.create({ name: 'udacity_full_stack_course', price: 250 })];
+                case 0: return [4 /*yield*/, store.create({ name: 'banana', price: 4 })];
                 case 1:
                     result = _a.sent();
-                    expect({ name: result.name, price: result.price }).toEqual({ name: 'udacity_full_stack_course', price: 250 });
+                    expect({ name: result.name, price: result.price }).toEqual({ name: 'banana', price: 4 });
                     return [2 /*return*/];
             }
         });
@@ -71,7 +71,7 @@ describe("Product Model", function () {
                 case 1:
                     result = _a.sent();
                     expect({ name: result[0].name, price: result[0].price }).toEqual({
-                        name: 'udacity_full_stack_course', price: 250
+                        name: 'banana', price: 4
                     });
                     return [2 /*return*/];
             }
@@ -81,11 +81,11 @@ describe("Product Model", function () {
         var result;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, store.show('udacity_full_stack_course')];
+                case 0: return [4 /*yield*/, store.show('banana')];
                 case 1:
                     result = _a.sent();
                     expect({ name: result.name, price: result.price }).toEqual({
-                        name: 'udacity_full_stack_course', price: 250
+                        name: 'banana', price: 4
                     });
                     return [2 /*return*/];
             }
@@ -96,7 +96,7 @@ describe("Product Model", function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    store.delete('udacity_full_stack_course');
+                    store.delete('banana');
                     return [4 /*yield*/, store.index()];
                 case 1:
                     result = _a.sent();
