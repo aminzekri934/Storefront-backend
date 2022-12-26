@@ -25,7 +25,6 @@ const productInstance = {
   name: "banana",
   price: 4,
 };
-
 let order_id:number;
 let user_Id: number ;
 let order_product_id:number;
@@ -44,21 +43,21 @@ describe("Order Handler", () => {
     const  user1 = await userStore.create(user);
     user_Id = parseInt(user1.id);  
     const product1= await productStore.create(productInstance);
-    product_Id= parseInt(product1.id as unknown as string)
+    product_Id= parseInt(product1.id as unknown as string);
+    
   });
 
   it("should return success for CREATE order", async () => {
     const response = await request
-      .post("/orders")
-      .auth(token, { type: "bearer" })
-      .send({ status: "shipped", userId:user_Id });
-    order_id=response.body.id;
+    .post("/orders")
+    .auth(token, { type: "bearer" })
+    .send({ status: "shipped", userId:user_Id });
+  order_id=response.body.id;
     expect(response.status).toBe(200);
     expect(response.body).toBeTruthy();
   });
-
   it("should return success for READ all orders", async () => {
-    const response = await request.get("/orders");
+     const response = await request.get("/orders");
     expect(response.status).toBe(200);
     //expect(response.body).toBeTruthy();
   });
@@ -99,6 +98,7 @@ describe("Order Handler", () => {
     expect(response.status).toBe(200);
    // expect(response.body).toBeTruthy();
   });
+
 
   afterAll(async () => {
     await productStore.delete(productInstance.name);
