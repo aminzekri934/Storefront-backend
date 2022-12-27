@@ -46,60 +46,59 @@ describe("Order Handler", () => {
     product_Id= parseInt(product1.id as unknown as string);
     
   });
-
-  it("should return success for CREATE order", async () => {
-    const response = await request
-    .post("/orders")
-    .auth(token, { type: "bearer" })
-    .send({ status: "shipped", userId:user_Id });
-  order_id=response.body.id;
-    expect(response.status).toBe(200);
-    expect(response.body).toBeTruthy();
-  });
-  it("should return success for READ all orders", async () => {
-     const response = await request.get("/orders");
-    expect(response.status).toBe(200);
-    //expect(response.body).toBeTruthy();
-  });
-
-  it("should return success for READ orders by id", async () => {
-    const response = await request.get(`/orders/:${order_id}`).send(`id:${order_id}`);
-
-    expect(response.status).toBe(200);
-    //expect(response.body).toBeTruthy();
-  });
-
-  it("should return success for CREATE order with product quantity and product id", async () => {
-    const response = await request
-      .post(`/orders/:${order_id}/products`)
+ 
+    it("should return success for CREATE order", async () => {
+      const response = await request
+      .post("/orders")
       .auth(token, { type: "bearer" })
-      .send({ quantity: 2, orderId:order_id, productId:product_Id });
-    order_product_id=response.body.id;
-    expect(response.status).toBe(200);
-    //expect(response.body).toBeTruthy();
-  });
-
-  it("should return success for DELETE order product with order product id", async () => {
-    const response = await request
-      .delete(`/orders/:${order_id}/products`)
-      .auth(token, { type: "bearer" })
-      .send({ orderProductId: `${order_product_id}`});
-
-    expect(response.status).toBe(200);
-    //expect(response.body).toBeTruthy();
-  });
-
-  it("should return success for DELETE order by order id", async () => {
-    const response = await request
-      .delete("/orders")
-      .auth(token, { type: "bearer" })
-      .send({ orderId:`${order_id}` });
-
-    expect(response.status).toBe(200);
-   // expect(response.body).toBeTruthy();
-  });
-
-
+      .send({ status: "shipped", userId:user_Id });
+    order_id=response.body.id;
+      expect(response.status).toBe(200);
+      expect(response.body).toBeTruthy();
+    });
+    it("should return success for READ all orders", async () => {
+       const response = await request.get("/orders");
+      expect(response.status).toBe(200);
+      //expect(response.body).toBeTruthy();
+    });
+  
+    it("should return success for READ orders by id", async () => {
+      const response = await request.get(`/orders/:${order_id}`).send(`id:${order_id}`);
+  
+      expect(response.status).toBe(200);
+      //expect(response.body).toBeTruthy();
+    });
+  
+    it("should return success for CREATE order with product quantity and product id", async () => {
+      const response = await request
+        .post(`/orders/:${order_id}/products`)
+        .auth(token, { type: "bearer" })
+        .send({ quantity: 2, orderId:order_id, productId:product_Id });
+      order_product_id=response.body.id;
+      expect(response.status).toBe(200);
+      //expect(response.body).toBeTruthy();
+    });
+  
+    it("should return success for DELETE order product with order product id", async () => {
+      const response = await request
+        .delete(`/orders/:${order_id}/products`)
+        .auth(token, { type: "bearer" })
+        .send({ orderProductId: `${order_product_id}`});
+  
+      expect(response.status).toBe(200);
+      //expect(response.body).toBeTruthy();
+    });
+  
+    it("should return success for DELETE order by order id", async () => {
+      const response = await request
+        .delete("/orders")
+        .auth(token, { type: "bearer" })
+        .send({ orderId:`${order_id}` });
+  
+      expect(response.status).toBe(200);
+     // expect(response.body).toBeTruthy();
+    });
+  
   afterAll(async () => {
     await productStore.delete(productInstance.name);
     await userStore.delete(userInstance.firstname);
